@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <title>Document</title>
+    <!-- CSS FILES -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="../static/css/bootstrap-icons.css" rel="stylesheet">
+
+    <link href="../static/css/owl.carousel.min.css" rel="stylesheet">
+
+    <link href="../static/css/owl.theme.default.min.css" rel="stylesheet">
+
+    <link href="../static/css/templatemo-medic-care.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container bg-da">
+        <nav class="navbar navbar-expand-lg bg-light fixed-top shadow-lg">
+            <div class="container">
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav mx-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="/">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Contact</a>
+                        </li>
+
+                        <a class="navbar-brand d-none d-lg-block" href="/">
+                            CKD Application
+                            <strong class="d-block">Predict kidney disease risk</strong>
+                        </a>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="/logout">Logout</a>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </nav>
+    </div>
+    <div class="container text-center text-dark mt-5">
+        <form action="{{url_for('predict_doctor')}}" method="post" id='submit-form' class="php-email-form p-3 p-md-4">
+            <div class="row">
+                <div class="col-xl-4 form-group">
+                    <input type="text" class="form-control" name="age" placeholder="Your Age" required
+                        style="height:50px">
+                    <small id="emailHelp" class="form-text text-muted text-left">กรอกเป็นตัวเลขอายุเป็นปี เช่น
+                        40</small>
+                </div>
+                <div class="col-xl-4 form-group">
+                    <input type="text" class="form-control" name="blood_pressure" placeholder="Your Blood Pressure"
+                        style="height:50px">
+                    <small id="emailHelp" class="form-text text-muted text-left">ความดันโลหิต หน่วย mm/Hg
+                        กรอกเป็นตัวเลข เช่น 120</small>
+                </div>
+                <div class="col-xl-4 form-group">
+                    <select class="form-control" name="albumin" style="height:50px">
+                        <option value="0" selected>Negative</option>
+                        <option value="1">1+</option>
+                        <option value="2">2+</option>
+                        <option value="3">3+</option>
+                        <option value="4">4+</option>
+                        <option value="5">5+</option>
+                    </select>
+                    <small id="emailHelp" class="form-text text-muted text-left">Albumin/Protein กรอกเป็นระดับ
+                        0(Negative),1+,2+,3+,4+,5+</small>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xl-4 form-group">
+                    <select class="form-control" name="sugar" style="height:50px">
+                        <option value="0" selected>Negative</option>
+                        <option value="1">1+</option>
+                        <option value="2">2+</option>
+                        <option value="3">3+</option>
+                        <option value="4">4+</option>
+                        <option value="5">5+</option>
+                    </select>
+                    <small id="emailHelp" class="form-text text-muted text-left">Sugar กรอกเป็นระดับ
+                        0(Negative),1+,2+,3+,4+,5+</small>
+                </div>
+                <div class="col-xl-4 form-group">
+                    <input type="text" class="form-control" name="blood_glucose_random"
+                        placeholder="Your Blood Glucose Random" style="height:50px" />
+                    <small id="emailHelp" class="form-text text-muted text-left">ระดับน้ำตาลในเลือดแบบสุ่มตรวจ
+                        กรอกเป็นตัวเลข เช่น 80</small>
+                </div>
+                <div class="col-xl-4 form-group">
+                    <input type="text" class="form-control" name="blood_urea" placeholder="Your Blood Urea"
+                        style="height:50px" />
+                    <small id="emailHelp" class="form-text text-muted text-left">ปริมาณยูเรียในเลือดหน่วยคือ
+                        mg/dL กรอกเป็นตัวเลข เช่น 90</small>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xl-4 form-group">
+                    <input type="text" class="form-control" name="serum_creatinine" placeholder="Your Serum Creatinine"
+                        style="height:50px" />
+                    <small id="emailHelp" class="form-text text-muted text-left">การตรวจวัดระดับ Creatinine
+                        หน่วยคือ mg/dL กรอกเป็นตัวเลขทศนิยม เช่น 0.8</small>
+                </div>
+                <div class="col-xl-4 form-group">
+                    <input type="text" class="form-control" name="haemoglobin" placeholder="Your Hemoglobin"
+                        style="height:50px" />
+                    <small id="emailHelp" class="form-text text-muted text-left">ค่าระดับโปรตีนในเซลล์เม็ดเลือดแดง
+                        หน่วยคือ g/dL
+                        กรอกเป็นตัวเลขทศนิยม เช่น 14.2</small>
+                </div>
+                <div class="col-xl-4 form-group">
+                    <input type="text" class="form-control" name="packed_cell_volume"
+                        placeholder="Your Packed Cell Volume" style="height:50px" />
+                    <small id="emailHelp" class="form-text text-muted text-left">ความเข้มข้นของปริมาตรเม็ดเลือดแดง
+                        หน่วยเป็น %
+                        (0%-100%) กรอกเป็นตัวเลข เช่น 51</small>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xl-4 form-group">
+                    <input type="text" class="form-control" name="red_blood_cell_count"
+                        placeholder="Your Red Blood Cell Count" style="height:50px" />
+                    <small id="emailHelp" class="form-text text-muted text-left">จำนวนเม็ดเลือดแดง หน่วย cells/mcL
+                        กรอกเป็นตัวเลขทศนิยม เช่น 4.7</small>
+                </div>
+                <div class="col-xl-4 form-group">
+                    <select class="form-control" name="hypertension" style="height:50px">
+                        <option value="0" selected>ไม่เป็น</option>
+                        <option value="1">เป็น</option>
+                    </select>
+                    <small id="emailHelp" class="form-text text-muted text-left">โรคความดันโลหิตสูง</small>
+                </div>
+                <div class="col-xl-4 form-group">
+                    <select class="form-control" name="diabetes_mellitus" style="height:50px">
+                        <option value="0" selected>ไม่เป็น</option>
+                        <option value="1">เป็น</option>
+                    </select>
+                    <small id="emailHelp" class="form-text text-muted text-left">โรคเบาหวาน</small>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xl-4 form-group">
+                    <select class="form-control" name="coronaru_artery_disease" style="height:50px">
+                        <option value="0" selected>ไม่เป็น</option>
+                        <option value="1">เป็น</option>
+                    </select>
+                    <small id="emailHelp" class="form-text text-muted text-left">โรคหัวใจขาดเลือด</small>
+                </div>
+                <div class="col-xl-4 form-group">
+                    <select class="form-control" name="appetite" style="height:50px">
+                        <option value="0" selected>ปกติดี</option>
+                        <option value="1">เบื่ออาหาร</option>
+                    </select>
+                    <small id="emailHelp" class="form-text text-muted text-left">ความอยากอาหาร</small>
+                </div>
+                <div class="col-xl-4 form-group">
+                    <select class="form-control" name="anemia" style="height:50px">
+                        <option value="0" selected>ไม่เป็น</option>
+                        <option value="1">เป็น</option>
+                    </select>
+                    <small id="emailHelp" class="form-text text-muted text-left">โรคโลหิตจาง</small>
+                </div>
+            </div>
+            <div class="text-center"><button class="btn btn-primary" id="submit" type="submit">PREDICT</button></div>
+        </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
