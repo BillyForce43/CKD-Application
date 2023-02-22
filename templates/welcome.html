@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-    <title>Document</title>
+    <title>CKD Application</title>
     <!-- CSS FILES -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
 
@@ -23,8 +24,33 @@
     <link href="../static/css/owl.theme.default.min.css" rel="stylesheet">
 
     <link href="../static/css/templatemo-medic-care.css" rel="stylesheet">
+
+    <style>
+        #spinning-image {
+            animation: spin 20s infinite linear;
+        }
+
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        #your-body-id {
+            background-image: url("../static/img/v870-tang-36.jpg");
+            background-size: cover;
+            /* To make the image cover the entire background */
+            background-repeat: no-repeat;
+            /* To prevent the image from repeating */
+        }
+    </style>
 </head>
-<body>
+
+<body id="your-body-id">
     <div class="container bg-da">
         <nav class="navbar navbar-expand-lg bg-light fixed-top shadow-lg">
             <div class="container">
@@ -34,7 +60,7 @@
                             <a class="nav-link" href="/">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Contact</a>
+                            <a class="nav-link" href="/contact">Contact</a>
                         </li>
 
                         <a class="navbar-brand d-none d-lg-block" href="/">
@@ -51,15 +77,56 @@
             </div>
         </nav>
     </div>
-    Hello, User...
-    <a href="/users">กดเพื่อดูสมาชิกอิอิ</a>
-    <br>
-    <a href="/prediction-doctor">ทำนายโรคไตเรื้อรัง (หมอ)</a> <br>
-    <a href="/prediction-guest">ทำนายโรคไตเรื้อรัง (ผู้ใช้ทั่วไป)</a><br>
-    <a href="/logout"><button class="btn btn-danger">Logout</button></a>
+    <div class="row">
+        <div class="col-6 mt-5 p-5 text-center">
+            
+            <h2>Welcome To Predict Chronic Kidney Disease Application</h2>
+            <h7 class="text-secondary">The kidneys are the most important organs in the body. They are the filters that
+                keep us clean and
+                healthy. Take care of your kidneys and they will take care of you.</h7>
+                <button class="btn btn-primary mt-5 " data-bs-toggle="modal" data-bs-target="#exampleModal">ทำนายโรคไตเรื้อรัง</button>
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h1 class="modal-title fs-5" id="exampleModalLabel">Please select your role...</h1>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <div class="row">
+                        <div class="col-6 text-center">
+                          <img src="../static/img/doctor.png" width="100" alt=""><br><br>
+                          <a href="/prediction-doctor"><button class="btn btn-primary">Medical Specialist</button></a>
+                        </div>
+                        <div class="col-6 text-center">
+                          <img src="../static/img/profile.png" width="100" alt=""><br><br>
+                          <a href="/prediction-guest"><button class="btn btn-primary">Guest User</button></a>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Modal -->
+            
+        </div>
+        <div class="col-6 mt-5 text-center">
+            <img src="../static/img/spinkidney.png" id="spinning-image">
+        </div>
+    </div>
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
         crossorigin="anonymous"></script>
+    <script src="../static/en_wel/script.js"></script>
+
+
 </body>
+
 </html>

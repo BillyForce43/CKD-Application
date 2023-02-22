@@ -1,6 +1,6 @@
 import numpy as np
 import pickle
-from flask import Flask, render_template, request, session, redirect, url_for
+from flask import Flask, render_template, request, session, redirect, url_for, flash
 from flask_bcrypt import Bcrypt
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField
@@ -49,6 +49,7 @@ def login():
         username = request.form['username']
         password = request.form['password']
         user = User.query.filter_by(username=username, password=password).first()
+        
         if user:
             return redirect(url_for('welcome'))
         else:
@@ -73,22 +74,31 @@ def register():
 
 @app.route('/logout')
 def logout():
-    # remove the username from the session if it's there
-    session.pop('username', None)
-    return redirect(url_for('index'))
-
+    session.pop('user_id', None)
+    session.pop('firstname', None)
+    session.pop('lastname', None)
+    return redirect('/login')
 @app.route('/result')
 def reslult():
     return render_template('result.html')
 
 @app.route('/welcome')
 def welcome():
+    user_id = session.get('user_id')
+    firstname = session.get('firstname')
+    lastname = session.get('lastname')
+    if user_id and firstname and lastname:
+        return render_template('welcome.html', firstname=firstname, lastname=lastname)
     return render_template('welcome.html')
     
 @app.route('/users')
 def users():
     users = User.query.all()
     return render_template('users.html', users=users)
+
+@app.route('/contact')
+def contact():
+    return render_template('contact.html')
 
 @app.route('/prediction-doctor')
 def prediction_doctor():

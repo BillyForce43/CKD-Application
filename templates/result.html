@@ -27,28 +27,52 @@
 </head>
 
 <body>
+    <div class="container bg-da">
+        <nav class="navbar navbar-expand-lg bg-light fixed-top shadow-lg">
+            <div class="container">
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav mx-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="/">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Contact</a>
+                        </li>
+
+                        <a class="navbar-brand d-none d-lg-block" href="/">
+                            CKD Application
+                            <strong class="d-block">Predict kidney disease risk</strong>
+                        </a>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="/logout">Logout</a>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </nav>
+    </div>
+
     <div class="carousel-item active" style="background-color: rgb(255, 255, 255);">
-        <div class="container">
-            <br>
-            <h2 style="text-align: center;">ระบบทำนายโรคไตเรื้อรัง</h2>
-            <br>
+        <div class="container mt-5">
             {% if output == 1 %}
             <div class="card b bg" style="text-align: center;">
                 <h5 class="card-header" style="background-color: green; color:white;">ผลการทำนาย</h5>
                 <div class="card-body ">
-                    <h5 class="card-title">ยินดีด้วย คุณไม่เป็นโรคไตเรื้อรัง</h5>
+                    <h5 class="card-title">ยินดีด้วย คุณไม่มีความเสี่ยงในการเป็นโรคไตเรื้อรัง</h5>
                     <p class="card-text">รักษาสุขภาพ และออกกำลังเป็นประจำ</p>
-                    <a href="/" class="btn btn-success">ทำนาย อีกครั้ง</a>
+                    <a href="/welcome" class="btn btn-success">ทำนาย อีกครั้ง</a>
                 </div>
             </div>
             {% else %}
             <div class="card b bg" style="text-align: center;">
                 <h5 class="card-header" style="background-color: rgb(240, 54, 54); color:white;">ผลการทำนาย</h5>
                 <div class="card-body ">
-                    <h5 class="card-title">คุณเสี่ยงเป็นโรคไตเรื้อรัง</h5>
+                    <h5 class="card-title">คุณมีความเสี่ยงเป็นโรคไตเรื้อรัง</h5>
                     <p class="card-text">โปรดปรึกษาแพทย์ที่เชี่ยวชาญ</p>
-                    <a href="/" class="btn btn-success">ทำนาย อีกครั้ง</a>
-                    <a href="/" class="btn btn-success">ศึกษาเพิ่มเติม</a>
+                    <a href="/welcome" class="btn btn-success">ทำนาย อีกครั้ง</a>
+                    <a href="https://www.ram-hosp.co.th/news_detail/1712" target="_blank" class="btn btn-success">ศึกษาเพิ่มเติม</a>
                 </div>
             </div>
             {% endif %}
