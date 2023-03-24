@@ -47,6 +47,24 @@
             background-repeat: no-repeat;
             /* To prevent the image from repeating */
         }
+
+        .button-for-test {
+            display: inline-block;
+            color: #fff;
+            text-transform: uppercase;
+            padding: 20px 30px;
+            border-radius: 5px;
+            box-shadow: 0px 17px 10px -10px rgba(0, 0, 0, 0.4);
+            cursor: pointer;
+            -webkit-transition: all ease-in-out 300ms;
+            transition: all ease-in-out 300ms;
+        }
+
+        .button-for-test:hover {
+            box-shadow: 0px 37px 20px -20px rgba(0, 0, 0, 0.2);
+            -webkit-transform: translate(0px, -10px) scale(1.2);
+            transform: translate(0px, -10px) scale(1.2);
+        }
     </style>
 </head>
 
@@ -57,10 +75,10 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav mx-auto">
                         <li class="nav-item active">
-                            <a class="nav-link" href="/">Home</a>
+                            <a class="nav-link" href="/">หน้าหลัก</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/contact">Contact</a>
+                            <a class="nav-link" href="/contact">ติดต่อ</a>
                         </li>
 
                         <a class="navbar-brand d-none d-lg-block" href="/">
@@ -69,7 +87,7 @@
                         </a>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="/logout">Logout</a>
+                            <a class="nav-link" href="/logout">ออกจากระบบ</a>
                         </li>
                     </ul>
                 </div>
@@ -79,46 +97,385 @@
     </div>
     <div class="row">
         <div class="col-6 mt-5 p-5 text-center">
-            
-            <h2>Welcome To Predict Chronic Kidney Disease Application</h2>
-            <h7 class="text-secondary">The kidneys are the most important organs in the body. They are the filters that
-                keep us clean and
-                healthy. Take care of your kidneys and they will take care of you.</h7>
-                <button class="btn btn-primary mt-5 " data-bs-toggle="modal" data-bs-target="#exampleModal">ทำนายโรคไตเรื้อรัง</button>
+
+            <h2>ยินดีต้อนรับ <br> แอปพลิเคชั่นทำนายโรคไตเรื้อรัง</h2>
+            <h7 class="text-secondary">ไตเป็นอวัยวะที่สำคัญที่สุดในร่างกาย เป็นตัวกรองที่ทำให้เราสะอาดและมีสุขภาพดี
+                ดูแลไตของคุณ แล้วไตจะดูแลคุณ</h7>
+            <div class="row">
+
+                {% if med_role == 1 %}
+                <div class="col-6"><button class="button-for-test btn-primary mt-5 " data-bs-toggle="modal"
+                        data-bs-target="#exampleModal">
+                        <h5 class="text-white">ทำนายโรคไตเรื้อรัง</h5>
+                    </button></div>
+
+                <div class="col-6">
+                    <button class="btn btn-primary button-for-test btn-primary mt-5" data-bs-toggle="modal"
+                        data-bs-target="#HistoryModal">
+                        <h5 class="text-white">ดูประวัติการทำนาย</h5>
+                    </button>
+                    {% else %}
+                    <div class="col-6"> <a href="/checkrole"><button class="button-for-test btn-primary mt-5 ">
+                                <h5 class="text-white">ทำนายโรคไตเรื้อรัง</h5>
+                            </button></a></div>
+
+                    <div class="col-6">
+                        <button class="btn btn-primary button-for-test btn-primary mt-5" data-bs-toggle="modal"
+                            data-bs-target="#GuestHistoryOnly">
+                            <h5 class="text-white">ดูประวัติการทำนาย</h5>
+                        </button>
+                        {% endif %}
+                    </div>
+
+                </div>
+
                 <!-- Modal -->
                 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h1 class="modal-title fs-5" id="exampleModalLabel">Please select your role...</h1>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                      <div class="row">
-                        <div class="col-6 text-center">
-                          <img src="../static/img/doctor.png" width="100" alt=""><br><br>
-                          <a href="/prediction-doctor"><button class="btn btn-primary">Medical Specialist</button></a>
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">กรุณาเลือกเวอร์ชั่นที่ต้องการ...
+                                </h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-6 text-center">
+                                        <img src="../static/img/doctor.png" width="100" alt=""><br><br>
+                                        <a href="/prediction_doctor"><button
+                                                class="btn btn-primary">ผู้เชี่ยวชาญด้านการแพทย์</button></a>
+                                    </div>
+                                    <div class="col-6 text-center">
+                                        <img src="../static/img/profile.png" width="100" alt=""><br><br>
+                                        <a href="/prediction_guest"><button
+                                                class="btn btn-primary">ผู้ใช้ทั่วไป</button></a>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-6 text-center">
-                          <img src="../static/img/profile.png" width="100" alt=""><br><br>
-                          <a href="/prediction-guest"><button class="btn btn-primary">Guest User</button></a>
-                        </div>
-                      </div>
                     </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    </div>
-                  </div>
                 </div>
-              </div>
-              <!-- Modal -->
-            
+                <!-- End Modal -->
+
+                <!-- HistoryModal -->
+                <div class="modal fade" id="HistoryModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">กรุณาเลือกเวอร์ชั่นที่ต้องการ...
+                                </h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-6 text-center">
+                                        <button class="btn btn-primary" data-bs-toggle="modal"
+                                            data-bs-target="#MedHistoryModal">ผู้เชี่ยวชาญด้านการแพทย์</button>
+                                    </div>
+                                    <div class="col-6 text-center">
+                                        <button class="btn btn-primary" data-bs-toggle="modal"
+                                            data-bs-target="#GuestHistoryModal">ผู้ใช้ทั่วไป</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- HistoryModal -->
+
+                <!-- Modal of both version -->
+                <div class="modal fade" id="MedHistoryModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog modal-fullscreen">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                {% if history_med%}
+                                <h2>ประวัติการทำนายของผู้เชี่ยวชาญด้านการแพทย์</h2>
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Age</th>
+                                            <th>Blood Pressure</th>
+                                            <th>Albumin</th>
+                                            <th>Sugar</th>
+                                            <th>Blood Glucose Random</th>
+                                            <th>Blood Urea</th>
+                                            <th>Serum Creatinine</th>
+                                            <th>Haemoglobin</th>
+                                            <th>Packed Cell Volume</th>
+                                            <th>Red Blood Cell Count</th>
+                                            <th>Hypertension</th>
+                                            <th>Diabetes Mellitus</th>
+                                            <th>Coronary Artery Disease</th>
+                                            <th>Appetite</th>
+                                            <th>Anemia</th>
+                                            <th>Result</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for prediction in history_med %}
+                                        <tr>
+                                            <td>{{ prediction.age }}</td>
+                                            <td>{{ prediction.blood_pressure }}</td>
+                                            <td>{{ prediction.albumin }}</td>
+                                            <td>{{ prediction.sugar }}</td>
+                                            <td>{{ prediction.blood_glucose_random }}</td>
+                                            <td>{{ prediction.blood_urea }}</td>
+                                            <td>{{ prediction.serum_creatinine }}</td>
+                                            <td>{{ prediction.haemoglobin }}</td>
+                                            <td>{{ prediction.packed_cell_volume }}</td>
+                                            <td>{{ prediction.red_blood_cell_count }}</td>
+                                            <td>
+                                                {% if prediction.hypertension == '0' %}
+                                                Not having hypertension
+                                                {% else %}
+                                                Having hypertension
+                                                {% endif %}
+                                            </td>
+                                            <td>
+                                                {% if prediction.diabetes_mellitus == '0' %}
+                                                Not having diabetes
+                                                {% else %}
+                                                Having diabetes
+                                                {% endif %}
+                                            </td>
+                                            <td>
+                                                {% if prediction.coronaru_artery_disease == '0' %}
+                                                Not having coronary heart disease
+                                                {% else %}
+                                                Having coronary heart disease
+                                                {% endif %}
+                                            </td>
+                                            <td>
+                                                {% if prediction.appetite == '0' %}
+                                                Normal appetite
+                                                {% else %}
+                                                Abnormal appetite
+                                                {% endif %}
+                                            </td>
+                                            <td>
+                                                {% if prediction.anemia == '0' %}
+                                                Not having anemia
+                                                {% else %}
+                                                Having anemia
+                                                {% endif %}
+                                            </td>
+                                            <td>
+                                                {% if prediction.result == '1' %}
+                                                Not at risk
+                                                {% else %}
+                                                At risk
+                                                {% endif %}
+
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                                {% endif %}
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Modal of both version -->
+
+                <div class="modal fade" id="GuestHistoryModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog modal-fullscreen">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <h2>ประวัติการทำนายของผู้ใช้ทั่วไป</h2>
+                                {% if history_guest %}
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>อายุ</th>
+                                            <th>โรคความดันโลหิตสูง</th>
+                                            <th>โรคเบาหวาน</th>
+                                            <th>โรคหลอดเลือดหัวใจ</th>
+                                            <th>ความอยากอาหาร</th>
+                                            <th>โรคโลหิตจาง</th>
+                                            <th>เท้าบวม กดบุ๋ม/th>
+                                            <th>ผลการทำนาย</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for prediction in history_guest %}
+                                        <tr>
+                                            <td>{{ prediction.age }} ปี</td>
+                                            <td>
+                                                {% if prediction.hypertension == '0' %}
+                                                ไม่เป็นโรคความดันโลหิตสูง
+                                                {% else %}
+                                                เป็นโรคความดันโลหิตสูง
+                                                {% endif %}
+                                            </td>
+                                            <td>
+                                                {% if prediction.diabetes_mellitus == '0' %}
+                                                ไม่เป็นโรคเบาหวาน
+                                                {% else %}
+                                                เป็นโรคเบาหวาน
+                                                {% endif %}
+                                            </td>
+                                            <td>
+                                                {% if prediction.coronaru_artery_disease == '0' %}
+                                                ไม่เป็นโรคหลอดเลือดหัวใจ
+                                                {% else %}
+                                                เป็นโรคหลอดเลือดหัวใจ
+                                                {% endif %}
+                                            </td>
+                                            <td>
+                                                {% if prediction.appetite == '0' %}
+                                                ความอยากอาหารปกติ
+                                                {% else %}
+                                                เบื่ออาหาร
+                                                {% endif %}
+                                            </td>
+                                            <td>
+                                                {% if prediction.anemia == '0' %}
+                                                ไม่เป็นโรคโลหิตจาง
+                                                {% else %}
+                                                เป็นโรคโลหิตจาง
+                                                {% endif %}
+                                            </td>
+                                            <td>
+                                                {% if prediction.peda_edema == '1' %}
+                                                ไม่มีอาการเท้าบวม กดบุ๋ม
+                                                {% else %}
+                                                มีอาการเท้าบวม กดบุ๋ม
+                                                {% endif %}
+                                            </td>
+                                            <td>
+                                                {% if prediction.result == '1' %}
+                                                ไม่มีความเสี่ยง
+                                                {% else %}
+                                                มีความเสี่ยง
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                                {% endif %}
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Modal History Guest Only -->
+                <div class="modal fade" id="GuestHistoryOnly" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog modal-fullscreen">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <h2>ประวัติการทำนายของผู้ใช้ทั่วไป</h2>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>อายุ</th>
+                                        <th>โรคความดันโลหิตสูง</th>
+                                        <th>โรคเบาหวาน</th>
+                                        <th>โรคหลอดเลือดหัวใจ</th>
+                                        <th>ความอยากอาหาร</th>
+                                        <th>โรคโลหิตจาง</th>
+                                        <th>เท้าบวม กดบุ๋ม</th>
+                                        <th>ผลการทำนาย</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for prediction in history_guest %}
+                                    <tr>
+                                        <td>{{ prediction.age }} ปี</td>
+                                        <td>
+                                            {% if prediction.hypertension == '0' %}
+                                            ไม่เป็นโรคความดันโลหิตสูง
+                                            {% else %}
+                                            เป็นโรคความดันโลหิตสูง
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            {% if prediction.diabetes_mellitus == '0' %}
+                                            ไม่เป็นโรคเบาหวาน
+                                            {% else %}
+                                            เป็นโรคเบาหวาน
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            {% if prediction.coronaru_artery_disease == '0' %}
+                                            ไม่เป็นโรคหลอดเลือดหัวใจ
+                                            {% else %}
+                                            เป็นโรคหลอดเลือดหัวใจ
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            {% if prediction.appetite == '0' %}
+                                            ความอยากอาหารปกติ
+                                            {% else %}
+                                            เบื่ออาหาร
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            {% if prediction.anemia == '0' %}
+                                            ไม่เป็นโรคโลหิตจาง
+                                            {% else %}
+                                            เป็นโรคโลหิตจาง
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            {% if prediction.peda_edema == '1' %}
+                                            ไม่มีอาการเท้าบวม กดบุ๋ม
+                                            {% else %}
+                                            มีอาการเท้าบวม กดบุ๋ม
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            {% if prediction.result == '1' %}
+                                            ไม่มีความเสี่ยง
+                                            {% else %}
+                                            มีความเสี่ยง
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- EndModal History -->
+            <div class="col-6 mt-5 text-center">
+                <img src="../static/img/spinkidney.png" id="spinning-image">
+            </div>
         </div>
-        <div class="col-6 mt-5 text-center">
-            <img src="../static/img/spinkidney.png" id="spinning-image">
-        </div>
+
     </div>
+
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"

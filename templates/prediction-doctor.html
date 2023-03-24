@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-        <title>CKD Application</title>
+    <title>CKD Application</title>
     <!-- CSS FILES -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
 
@@ -33,20 +33,19 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav mx-auto">
                         <li class="nav-item active">
-                            <a class="nav-link" href="/">Home</a>
+                            <a class="nav-link" href="/">หน้าหลัก</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Contact</a>
+                            <a class="nav-link" href="/contact">ติดต่อ</a>
                         </li>
 
                         <a class="navbar-brand d-none d-lg-block" href="/">
                             CKD Application
                             <strong class="d-block">Predict kidney disease risk</strong>
                         </a>
+                        <a class="nav-link" href="/welcome">กลับหน้าหลัก</a>
+                        <a class="nav-link text-danger" href="/logout">ออกจากระบบ</a>
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="/logout">Logout</a>
-                        </li>
                     </ul>
                 </div>
 
@@ -59,17 +58,17 @@
                 <div class="col-xl-4 form-group">
                     <input type="text" class="form-control" name="age" placeholder="Your Age" required
                         style="height:50px">
-                    <small id="emailHelp" class="form-text text-muted text-left">กรอกเป็นตัวเลขอายุเป็นปี เช่น
+                    <small id="emailHelp" class="form-text text-muted text-left">Enter your age in years, e.g.
                         40</small>
                 </div>
                 <div class="col-xl-4 form-group">
                     <input type="text" class="form-control" name="blood_pressure" placeholder="Your Blood Pressure"
-                        style="height:50px">
-                    <small id="emailHelp" class="form-text text-muted text-left">ความดันโลหิต หน่วย mm/Hg
-                        กรอกเป็นตัวเลข เช่น 120</small>
+                        required style="height:50px">
+                    <small id="emailHelp" class="form-text text-muted text-left">Blood pressure in mm/Hg. Enter as a
+                        number, e.g. 120</small>
                 </div>
                 <div class="col-xl-4 form-group">
-                    <select class="form-control" name="albumin" style="height:50px">
+                    <select class="form-control" name="albumin" required style="height:50px">
                         <option value="0" selected>Negative</option>
                         <option value="1">1+</option>
                         <option value="2">2+</option>
@@ -77,13 +76,13 @@
                         <option value="4">4+</option>
                         <option value="5">5+</option>
                     </select>
-                    <small id="emailHelp" class="form-text text-muted text-left">Albumin/Protein กรอกเป็นระดับ
-                        0(Negative),1+,2+,3+,4+,5+</small>
+                    <small id="emailHelp" class="form-text text-muted text-left" required>Albumin/Protein. Enter as
+                        level 0 (Negative), 1+, 2+, 3+, 4+, or 5+</small>
                 </div>
             </div>
             <div class="row">
                 <div class="col-xl-4 form-group">
-                    <select class="form-control" name="sugar" style="height:50px">
+                    <select class="form-control" name="sugar" style="height:50px" required>
                         <option value="0" selected>Negative</option>
                         <option value="1">1+</option>
                         <option value="2">2+</option>
@@ -91,87 +90,85 @@
                         <option value="4">4+</option>
                         <option value="5">5+</option>
                     </select>
-                    <small id="emailHelp" class="form-text text-muted text-left">Sugar กรอกเป็นระดับ
-                        0(Negative),1+,2+,3+,4+,5+</small>
+                    <small id="emailHelp" class="form-text text-muted text-left">Sugar. Enter as level 0 (Negative), 1+,
+                        2+, 3+, 4+, or 5+</small>
                 </div>
                 <div class="col-xl-4 form-group">
-                    <input type="text" class="form-control" name="blood_glucose_random"
+                    <input type="text" class="form-control" name="blood_glucose_random" required
                         placeholder="Your Blood Glucose Random" style="height:50px" />
-                    <small id="emailHelp" class="form-text text-muted text-left">ระดับน้ำตาลในเลือดแบบสุ่มตรวจ
-                        กรอกเป็นตัวเลข เช่น 80</small>
+                    <small id="emailHelp" class="form-text text-muted text-left">Random blood sugar level unit is mg/dL.
+                        Enter a number such as 80.</small>
                 </div>
                 <div class="col-xl-4 form-group">
-                    <input type="text" class="form-control" name="blood_urea" placeholder="Your Blood Urea"
+                    <input type="text" class="form-control" name="blood_urea" placeholder="Your Blood Urea" required
                         style="height:50px" />
-                    <small id="emailHelp" class="form-text text-muted text-left">ปริมาณยูเรียในเลือดหน่วยคือ
-                        mg/dL กรอกเป็นตัวเลข เช่น 90</small>
+                    <small id="emailHelp" class="form-text text-muted text-left">Blood urea level unit is mg/dL. Enter a
+                        number such as 90.</small>
                 </div>
             </div>
             <div class="row">
                 <div class="col-xl-4 form-group">
                     <input type="text" class="form-control" name="serum_creatinine" placeholder="Your Serum Creatinine"
-                        style="height:50px" />
-                    <small id="emailHelp" class="form-text text-muted text-left">การตรวจวัดระดับ Creatinine
-                        หน่วยคือ mg/dL กรอกเป็นตัวเลขทศนิยม เช่น 0.8</small>
+                        required style="height:50px" />
+                    <small id="emailHelp" class="form-text text-muted text-left">Creatinine level measurement unit is
+                        mg/dL. Enter a decimal number such as 0.8.</small>
                 </div>
                 <div class="col-xl-4 form-group">
-                    <input type="text" class="form-control" name="haemoglobin" placeholder="Your Hemoglobin"
+                    <input type="text" class="form-control" name="haemoglobin" placeholder="Your Hemoglobin" required
                         style="height:50px" />
-                    <small id="emailHelp" class="form-text text-muted text-left">ค่าระดับโปรตีนในเซลล์เม็ดเลือดแดง
-                        หน่วยคือ g/dL
-                        กรอกเป็นตัวเลขทศนิยม เช่น 14.2</small>
+                    <small id="emailHelp" class="form-text text-muted text-left">Protein level in red blood cells unit
+                        is g/dL. Enter a decimal number such as 14.2.</small>
                 </div>
                 <div class="col-xl-4 form-group">
-                    <input type="text" class="form-control" name="packed_cell_volume"
+                    <input type="text" class="form-control" name="packed_cell_volume" required
                         placeholder="Your Packed Cell Volume" style="height:50px" />
-                    <small id="emailHelp" class="form-text text-muted text-left">ความเข้มข้นของปริมาตรเม็ดเลือดแดง
-                        หน่วยเป็น %
-                        (0%-100%) กรอกเป็นตัวเลข เช่น 51</small>
+                    <small id="emailHelp" class="form-text text-muted text-left">Hematocrit level unit is %. Enter a
+                        number such as 51 (0% - 100%).</small>
                 </div>
             </div>
             <div class="row">
                 <div class="col-xl-4 form-group">
-                    <input type="text" class="form-control" name="red_blood_cell_count"
+                    <input type="text" class="form-control" name="red_blood_cell_count" required
                         placeholder="Your Red Blood Cell Count" style="height:50px" />
-                    <small id="emailHelp" class="form-text text-muted text-left">จำนวนเม็ดเลือดแดง หน่วย cells/mcL
-                        กรอกเป็นตัวเลขทศนิยม เช่น 4.7</small>
+                    <small id="emailHelp" class="form-text text-muted text-left">Red blood cell count unit is cells/mcL.
+                        Enter a decimal number such as 4.7.</small>
                 </div>
                 <div class="col-xl-4 form-group">
-                    <select class="form-control" name="hypertension" style="height:50px">
-                        <option value="0" selected>ไม่เป็น</option>
-                        <option value="1">เป็น</option>
+                    <select class="form-control" name="hypertension" style="height:50px" required>
+                        <option value="0" selected>Not present</option>
+                        <option value="1">present</option>
                     </select>
-                    <small id="emailHelp" class="form-text text-muted text-left">โรคความดันโลหิตสูง</small>
+                    <small id="emailHelp" class="form-text text-muted text-left">Hytertension</small>
                 </div>
                 <div class="col-xl-4 form-group">
-                    <select class="form-control" name="diabetes_mellitus" style="height:50px">
-                        <option value="0" selected>ไม่เป็น</option>
-                        <option value="1">เป็น</option>
+                    <select class="form-control" name="diabetes_mellitus" style="height:50px" required>
+                        <option value="0" selected>Not present</option>
+                        <option value="1">present</option>
                     </select>
-                    <small id="emailHelp" class="form-text text-muted text-left">โรคเบาหวาน</small>
+                    <small id="emailHelp" class="form-text text-muted text-left">Diabetes Mellitus</small>
                 </div>
             </div>
             <div class="row">
                 <div class="col-xl-4 form-group">
-                    <select class="form-control" name="coronaru_artery_disease" style="height:50px">
-                        <option value="0" selected>ไม่เป็น</option>
-                        <option value="1">เป็น</option>
+                    <select class="form-control" name="coronaru_artery_disease" style="height:50px" required>
+                        <option value="0" selected>Not present</option>
+                        <option value="1">present</option>
                     </select>
-                    <small id="emailHelp" class="form-text text-muted text-left">โรคหัวใจขาดเลือด</small>
+                    <small id="emailHelp" class="form-text text-muted text-left">Coronary Artery Disease</small>
                 </div>
                 <div class="col-xl-4 form-group">
-                    <select class="form-control" name="appetite" style="height:50px">
-                        <option value="0" selected>ปกติดี</option>
-                        <option value="1">เบื่ออาหาร</option>
+                    <select class="form-control" name="appetite" style="height:50px" required>
+                        <option value="0" selected>Normal</option>
+                        <option value="1">Decreased</option>
                     </select>
-                    <small id="emailHelp" class="form-text text-muted text-left">ความอยากอาหาร</small>
+                    <small id="emailHelp" class="form-text text-muted text-left">Appitite</small>
                 </div>
                 <div class="col-xl-4 form-group">
-                    <select class="form-control" name="anemia" style="height:50px">
-                        <option value="0" selected>ไม่เป็น</option>
-                        <option value="1">เป็น</option>
+                    <select class="form-control" name="anemia" style="height:50px" required>
+                        <option value="0" selected>Not present</option>
+                        <option value="1">present</option>
                     </select>
-                    <small id="emailHelp" class="form-text text-muted text-left">โรคโลหิตจาง</small>
+                    <small id="emailHelp" class="form-text text-muted text-left">Anemia</small>
                 </div>
             </div>
             <div class="text-center"><button class="btn btn-primary" id="submit" type="submit">PREDICT</button></div>

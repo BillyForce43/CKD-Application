@@ -51,10 +51,10 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav mx-auto">
                         <li class="nav-item active">
-                            <a class="nav-link" href="/">Home</a>
+                            <a class="nav-link" href="/">หน้าหลัก</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/contact">Contact</a>
+                            <a class="nav-link" href="/contact">ติดต่อ</a>
                         </li>
 
                         <a class="navbar-brand d-none d-lg-block" href="/">
@@ -63,11 +63,11 @@
                         </a>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="/login">Login</a>
+                            <a class="nav-link" href="/login">ล็อคอิน</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="/register">Register</a>
+                            <a class="nav-link" href="/register">สมัครมาชิก</a>
                         </li>
                     </ul>
                 </div>
@@ -103,48 +103,59 @@
                 </div>
                 <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
                     <form method="post" action="{{ url_for('register') }}">
-                        
+
                         <div class="container mt-5">
-                            <h2>Register</h2>
+                            <h2>สมัครมาชิก</h2>
                             <!-- Username input -->
-                            <div class="form-outline ">
+                            <div class="form-outline p-1">
+                                <label class="form-label" for="form3Example3">Username</label>
                                 <input type="text" id="form3Example3" name="username"
                                     class="form-control form-control-lg" placeholder="Enter username" required />
-                                <label class="form-label" for="form3Example3">Username</label>
                             </div>
 
                             <!-- Password input -->
-                            <div class="form-outline">
+                            <div class="form-outline p-1">
+                                <label class="form-label" for="form3Example4">Password</label>
                                 <input type="password" id="form3Example4" name="password"
                                     class="form-control form-control-lg" placeholder="Enter password" required />
-                                <label class="form-label" for="form3Example4">Password</label>
                             </div>
 
                             <!-- Firstname input -->
-                            <div class="form-outline">
+                            <div class="form-outline p-1">
+                                <label class="form-label" for="form3Example3">ชื่อ</label>
                                 <input type="text" id="form3Example3" name="firstname"
                                     class="form-control form-control-lg" placeholder="Enter first name" required />
-                                <label class="form-label" for="form3Example3">First name</label>
                             </div>
 
                             <!-- Lastname input -->
-                            <div class="form-outline">
+                            <div class="form-outline p-1">
+                                <label class="form-label" for="form3Example3">นามสกุล</label>
                                 <input type="text" id="form3Example3" name="lastname"
                                     class="form-control form-control-lg" placeholder="Enter last name" required />
-                                <label class="form-label" for="form3Example3">Last name</label>
                             </div>
 
                             <!-- Email input -->
-                            <div class="form-outline">
+                            <div class="form-outline p-1">
+                                <label class="form-label" for="form3Example3">อีเมล</label>
                                 <input type="text" id="form3Example3" name="email" class="form-control form-control-lg"
                                     placeholder="Enter email" required />
-                                <label class="form-label" for="form3Example3">Email address</label>
                             </div>
+
+                            <!-- Role input -->
+                            <div class="form-outline p-1">
+                                <label class="form-label" for="form3Example3">ประเภทผู้ใช้</label>
+                                <select class="form-select" aria-label="Default select example" name="user_role">
+                                    <option selected>เลือกประเภทผู้ใช้</option>
+                                    <option value="1">ผู้เชี่ยวชาญด้านการแพทย์</option>
+                                    <option value="2">ผู้ใช้ทั่วไป</option>
+                                  </select>
+                            </div>
+
                             <div class="text-center text-lg-start mt-4 pt-2">
                                 <button type="submit" class="btn btn-primary btn-lg"
                                     style="padding-left: 2.5rem; padding-right: 2.5rem;">Register</button>
                             </div>
-    
+
                         </div>
                     </form>
                 </div>
