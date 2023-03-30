@@ -52,22 +52,22 @@
             </div>
         </nav>
     </div>
-    <div class="container text-center text-dark mt-5">
+    <h2 class="text-center mt-5">ระบบวิเคราะห์โรคไตเรื้อรัง(แพทย์ผู้เชี่ยวชาญ)</h2>
+    <div class="container text-dark">
         <form action="{{url_for('predict_doctor')}}" method="post" id='submit-form' class="php-email-form p-3 p-md-4">
-            <div class="row">
+            <div class="row mt-4">
                 <div class="col-xl-4 form-group">
-                    <input type="text" class="form-control" name="age" placeholder="Your Age" required
+                    <label for="age" class="form-label">อายุ</label>
+                    <input type="text" class="form-control" name="age" placeholder="กรอกอายุของคุณในปี เช่น 40" required
                         style="height:50px">
-                    <small id="emailHelp" class="form-text text-muted text-left">Enter your age in years, e.g.
-                        40</small>
                 </div>
                 <div class="col-xl-4 form-group">
-                    <input type="text" class="form-control" name="blood_pressure" placeholder="Your Blood Pressure"
+                    <label for="age" class="form-label">ความดันโลหิต</label>
+                    <input type="text" class="form-control" name="blood_pressure" placeholder="หน่วย mm/Hg กรอกเป็นตัวเลข เช่น 120"
                         required style="height:50px">
-                    <small id="emailHelp" class="form-text text-muted text-left">Blood pressure in mm/Hg. Enter as a
-                        number, e.g. 120</small>
                 </div>
                 <div class="col-xl-4 form-group">
+                    <label for="age" class="form-label">อัลบูมิน/โปรตีน</label>
                     <select class="form-control" name="albumin" required style="height:50px">
                         <option value="0" selected>Negative</option>
                         <option value="1">1+</option>
@@ -76,12 +76,13 @@
                         <option value="4">4+</option>
                         <option value="5">5+</option>
                     </select>
-                    <small id="emailHelp" class="form-text text-muted text-left" required>Albumin/Protein. Enter as
-                        level 0 (Negative), 1+, 2+, 3+, 4+, or 5+</small>
+                    <small id="emailHelp" class="form-text text-muted text-left" required>กรอกเป็นระดับ
+                        0 (Negative), 1+, 2+, 3+, 4+ หรือ 5+</small>
                 </div>
             </div>
-            <div class="row">
+            <div class="row mt-4">
                 <div class="col-xl-4 form-group">
+                    <label for="age" class="form-label">น้ำตาล</label>
                     <select class="form-control" name="sugar" style="height:50px" required>
                         <option value="0" selected>Negative</option>
                         <option value="1">1+</option>
@@ -90,88 +91,81 @@
                         <option value="4">4+</option>
                         <option value="5">5+</option>
                     </select>
-                    <small id="emailHelp" class="form-text text-muted text-left">Sugar. Enter as level 0 (Negative), 1+,
-                        2+, 3+, 4+, or 5+</small>
+                    <small id="emailHelp" class="form-text text-muted text-left">กรอกเป็นระดับ 0 (Negative), 1+,2+,3+, 4+ หรือ 5+</small>
                 </div>
                 <div class="col-xl-4 form-group">
+                    <label for="age" class="form-label">ระดับน้ำตาลในเลือดแบบสุ่ม</label>
                     <input type="text" class="form-control" name="blood_glucose_random" required
-                        placeholder="Your Blood Glucose Random" style="height:50px" />
-                    <small id="emailHelp" class="form-text text-muted text-left">Random blood sugar level unit is mg/dL.
-                        Enter a number such as 80.</small>
+                        placeholder="หน่วยเป็น mg/dL กรอกตัวเลข เช่น 80" style="height:50px" />
                 </div>
                 <div class="col-xl-4 form-group">
-                    <input type="text" class="form-control" name="blood_urea" placeholder="Your Blood Urea" required
-                        style="height:50px" />
-                    <small id="emailHelp" class="form-text text-muted text-left">Blood urea level unit is mg/dL. Enter a
-                        number such as 90.</small>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xl-4 form-group">
-                    <input type="text" class="form-control" name="serum_creatinine" placeholder="Your Serum Creatinine"
+                    <label for="age" class="form-label">ยูเรียในเลือด</label>
+                    <input type="text" class="form-control" name="blood_urea" placeholder="หน่วยเป็น mg/dL กรอกตัวเลข เช่น 90"
                         required style="height:50px" />
-                    <small id="emailHelp" class="form-text text-muted text-left">Creatinine level measurement unit is
-                        mg/dL. Enter a decimal number such as 0.8.</small>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col-xl-4 form-group">
+                    <label for="age" class="form-label">การตรวจวัดระดับครีอะทีนีน</label>
+                    <input type="text" class="form-control" name="serum_creatinine"
+                        placeholder="หน่วยคือ mg/dL กรอกเป็นตัวเลขทศนิยม เช่น 0.8" required style="height:50px" />
                 </div>
                 <div class="col-xl-4 form-group">
-                    <input type="text" class="form-control" name="haemoglobin" placeholder="Your Hemoglobin" required
-                        style="height:50px" />
-                    <small id="emailHelp" class="form-text text-muted text-left">Protein level in red blood cells unit
-                        is g/dL. Enter a decimal number such as 14.2.</small>
+                    <label for="age" class="form-label">ระดับโปรตีนในเซลล์เลือดแดง</label>
+                    <input type="text" class="form-control" name="haemoglobin"
+                        placeholder="หน่วยเป็น g/dL กรอกตัวเลขทศนิยม เช่น 14.2" required style="height:50px" />
                 </div>
                 <div class="col-xl-4 form-group">
+                    <label for="age" class="form-label">ความเข้มข้นของปริมาตรเม็ดเลือดแดง</label>
                     <input type="text" class="form-control" name="packed_cell_volume" required
-                        placeholder="Your Packed Cell Volume" style="height:50px" />
-                    <small id="emailHelp" class="form-text text-muted text-left">Hematocrit level unit is %. Enter a
-                        number such as 51 (0% - 100%).</small>
+                        placeholder="หน่วยเป็น % (0%-100%) กรอกเป็นตัวเลข เช่น 51" style="height:50px" />
                 </div>
             </div>
-            <div class="row">
+            <div class="row mt-4">
                 <div class="col-xl-4 form-group">
+                    <label for="age" class="form-label">จำนวนเซลล์เลือดแดงในเลือด</label>
                     <input type="text" class="form-control" name="red_blood_cell_count" required
-                        placeholder="Your Red Blood Cell Count" style="height:50px" />
-                    <small id="emailHelp" class="form-text text-muted text-left">Red blood cell count unit is cells/mcL.
-                        Enter a decimal number such as 4.7.</small>
+                        placeholder="หน่วยเป็น cells/mcL กรอกตัวเลขทศนิยม เช่น 4.7" style="height:50px" />
                 </div>
                 <div class="col-xl-4 form-group">
+                    <label for="age" class="form-label">โรคความดันโลหิตสูง</label>
                     <select class="form-control" name="hypertension" style="height:50px" required>
-                        <option value="0" selected>Not present</option>
-                        <option value="1">present</option>
+                        <option value="0" selected>ไม่เป็นโรคความดันโลหิตสูง</option>
+                        <option value="1">เป็นโรคความดันโลหิตสูง</option>
                     </select>
-                    <small id="emailHelp" class="form-text text-muted text-left">Hytertension</small>
                 </div>
                 <div class="col-xl-4 form-group">
+                    <label for="age" class="form-label">โรคเบาหวาน</label>
                     <select class="form-control" name="diabetes_mellitus" style="height:50px" required>
-                        <option value="0" selected>Not present</option>
-                        <option value="1">present</option>
+                        <option value="0" selected>ไม่เป็นโรคเบาหวาน</option>
+                        <option value="1">เป็นโรคเบาหวาน</option>
                     </select>
-                    <small id="emailHelp" class="form-text text-muted text-left">Diabetes Mellitus</small>
                 </div>
             </div>
-            <div class="row">
+            <div class="row mt-4">
                 <div class="col-xl-4 form-group">
+                    <label for="age" class="form-label">โรคหลอดเลือดหัวใจ</label>
                     <select class="form-control" name="coronaru_artery_disease" style="height:50px" required>
-                        <option value="0" selected>Not present</option>
-                        <option value="1">present</option>
+                        <option value="0" selected>ไม่เป็นโรคหลอดเลือดหัวใจ</option>
+                        <option value="1">เป็นโรคหลอดเลือดหัวใจ</option>
                     </select>
-                    <small id="emailHelp" class="form-text text-muted text-left">Coronary Artery Disease</small>
                 </div>
                 <div class="col-xl-4 form-group">
+                    <label for="age" class="form-label">ความอยากอาหาร</label>
                     <select class="form-control" name="appetite" style="height:50px" required>
-                        <option value="0" selected>Normal</option>
-                        <option value="1">Decreased</option>
+                        <option value="0" selected>ความอยากอาหารปกติ</option>
+                        <option value="1">เบื่ออาหาร</option>
                     </select>
-                    <small id="emailHelp" class="form-text text-muted text-left">Appitite</small>
                 </div>
                 <div class="col-xl-4 form-group">
+                    <label for="age" class="form-label">โรคโลหิตจาง</label>
                     <select class="form-control" name="anemia" style="height:50px" required>
-                        <option value="0" selected>Not present</option>
-                        <option value="1">present</option>
+                        <option value="0" selected>ไม่เป็นโรคโลหิตจาง</option>
+                        <option value="1">เป็นโรคโลหิตจาง</option>
                     </select>
-                    <small id="emailHelp" class="form-text text-muted text-left">Anemia</small>
                 </div>
             </div>
-            <div class="text-center"><button class="btn btn-primary" id="submit" type="submit">PREDICT</button></div>
+            <div class="text-center mt-5"><button class="btn btn-primary" id="submit" type="submit">ทำนาย</button></div>
         </form>
     </div>
 

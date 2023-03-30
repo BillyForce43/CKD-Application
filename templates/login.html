@@ -40,6 +40,12 @@
                 height: 100%;
             }
         }
+        .error {
+            color: white;
+            background-color: red;
+            font-size: 20px;
+            font-family: 'Kanit', sans-serif;
+        }
     </style>
 </head>
 
@@ -49,7 +55,7 @@
             <div class="container">
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav mx-auto">
-                        <li class="nav-item active">
+                        <li class="nav-item">
                             <a class="nav-link" href="/">หน้าหลัก</a>
                         </li>
                         <li class="nav-item">
@@ -61,8 +67,8 @@
                             <strong class="d-block">Predict kidney disease risk</strong>
                         </a>
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="/login">ล็อคอิน</a>
+                        <li class="nav-item  active">
+                            <a class="nav-link" href="/login">เข้าสู่ระบบ</a>
                         </li>
 
                         <li class="nav-item">
@@ -70,20 +76,12 @@
                         </li>
                     </ul>
                 </div>
-                
+
 
             </div>
         </nav>
     </div>
-    <!-- <form method="post" action="{{ url_for('login') }}">
-        <label for="username">Username:</label>
-        <input type="text" name="username" required>
-        <br>
-        <label for="password">Password:</label>
-        <input type="password" name="password" required>
-        <br>
-        <input type="submit" value="Login">
-    </form> -->
+
     <section class="vh-100">
         <div class="container-fluid h-custom">
             <div class="row d-flex justify-content-center align-items-center h-100">
@@ -97,21 +95,21 @@
 
                         <!-- Email input -->
                         <div class="form-outline mb-4">
-                            <label class="form-label" for="form3Example3">Username</label>
+                            <label class="form-label" for="form3Example3">ชื่อผู้ใช้</label>
                             <input type="text" id="form3Example3" name="username" class="form-control form-control-lg"
-                                placeholder="กรอก username" required />
+                                placeholder="กรอกชื่อผู้ใช้" required />
                         </div>
 
                         <!-- Password input -->
                         <div class="form-outline mb-3">
-                            <label class="form-label" for="form3Example4">Password</label>
+                            <label class="form-label" for="form3Example4">รหัสผ่าน</label>
                             <input type="password" id="form3Example4" name="password"
-                                class="form-control form-control-lg" placeholder="กรอก password" required />
+                                class="form-control form-control-lg" placeholder="กรอกรหัสผ่าน" required />
                         </div>
 
                         <div class="text-center text-lg-start mt-4 pt-2">
                             <button type="submit" class="btn btn-primary btn-lg"
-                                style="padding-left: 2.5rem; padding-right: 2.5rem;">Login</button>
+                                style="padding-left: 2.5rem; padding-right: 2.5rem;">เข้าสู่ระบบ</button>
                             <p class="small fw-bold mt-2 pt-1 mb-0">หากยังไม่ได้สมัครสมาชิก? <a href="/register"
                                     class="link-danger">สมัครมาชิก</a></p>
                         </div>

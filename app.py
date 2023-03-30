@@ -1,18 +1,18 @@
 import numpy as np
 import pickle
-from flask import Flask, render_template, request, session, redirect, url_for, flash
+from flask import Flask, render_template, request, session, redirect, url_for, flash,send_file
 from flask_bcrypt import Bcrypt
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import DataRequired, Length, Email, EqualTo
 from flask_sqlalchemy import SQLAlchemy
-import datetime
 from datetime import datetime
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user, UserMixin
 from flask_session import Session
 from werkzeug.security import check_password_hash
 import sqlite3
 from decimal import Decimal
+import pandas as pd
 
 
 app = Flask(__name__)
@@ -56,9 +56,10 @@ class HistoryMed(db.Model):
     appetite = db.Column(db.String(10), nullable=False)
     anemia = db.Column(db.String(10), nullable=False)
     result = db.Column(db.String(10), nullable=False)
+    timestamp = db.Column(db.DateTime, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     user = db.relationship('User', backref='history_med')
-
+    
 class HistoryGuest(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     age = db.Column(db.String(10), nullable=False)
@@ -68,6 +69,7 @@ class HistoryGuest(db.Model):
     anemia = db.Column(db.String(10), nullable=False)
     peda_edema = db.Column(db.String(10), nullable=False)
     result = db.Column(db.String(10), nullable=False)
+    timestamp = db.Column(db.DateTime, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     user = db.relationship('User', backref='history_guest')
     
@@ -80,9 +82,17 @@ def load_user(user_id):
     # based on the user_id
     return User.query.get(int(user_id))
 
+
 @app.route('/')
 def index():
-    return render_template('index.html')
+    login_now = 0
+    if current_user.is_authenticated:
+        # User is logged in
+        login_now = 1
+        return render_template('index.html',login_now=login_now)
+    else:
+        # User is not logged in
+        return render_template('index.html',login_now=login_now)
 
 # @app.route('/login', methods=['GET', 'POST'])
 # def login():
@@ -107,7 +117,19 @@ def login():
             login_user(user)
             return redirect(url_for('welcome'))
         else:
-            return 'Invalid Login. Please try again.'
+            flash('Invalid username or password', 'error')
+            return redirect('/login')
+
+         # Check if the username and password are correct
+        # if username != 'correct_username' or password != 'correct_password':
+        #     flash('Invalid username or password', 'error')
+        #     return redirect('/login')
+        # else:
+        #     login_user(user)
+        #     return redirect(url_for('welcome'))
+        
+        # If the username and password are correct, redirect to the home page
+        
     return render_template('login.html')
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -167,13 +189,14 @@ def reslult():
 @app.route('/welcome')
 def welcome():
     # prepare data for show history of prediction
-    history_med = HistoryMed.query.filter_by(user_id=current_user.id).all()
-    history_guest = HistoryGuest.query.filter_by(user_id=current_user.id).all()
+    history_med = HistoryMed.query.filter_by(user_id=current_user.id).order_by(HistoryMed.timestamp.desc()).all()
+    history_guest = HistoryGuest.query.filter_by(user_id=current_user.id).order_by(HistoryGuest.timestamp.desc()).all()
     user_data = User.query.filter(User.id == current_user.id).first()
     # prepare data for show history of prediction
 
     med_role = 0
     guest_role = 0
+    admin_role = 0
     # check role to show history
     if current_user.is_authenticated:
         user_id = current_user.id
@@ -186,18 +209,35 @@ def welcome():
             med_role = 1
         elif users[0] == '2':
             guest_role = 1
+        elif users[0] == '3':
+            admin_role = 1
     # check role to show history
 
-    return render_template('welcome.html', history_med=history_med, history_guest=history_guest, user_data=user_data, med_role=med_role, guest_role=guest_role)
+    return render_template('welcome.html', history_med=history_med, history_guest=history_guest, user_data=user_data, med_role=med_role, guest_role=guest_role,admin_role=admin_role)
     
-@app.route('/users')
-def users():
+@app.route('/admin_history_med')
+def admin_history():
     users = User.query.all()
-    return render_template('users.html', users=users)
+    medhistory = HistoryMed.query.order_by(HistoryMed.timestamp.desc()).all()
+    return render_template('admin-history-med.html', users=users,medhistory=medhistory)
+
+@app.route('/admin_history_guest')
+def admin_guest():
+    users = User.query.all()
+    guesthistory = HistoryGuest.query.order_by(HistoryGuest.timestamp.desc()).all()
+    return render_template('admin-history-guest.html', users=users,guesthistory=guesthistory)
 
 @app.route('/contact')
 def contact():
-    return render_template('contact.html')
+    login_now = 0
+    if current_user.is_authenticated:
+        # User is logged in
+        login_now = 1
+        return render_template('contact.html',login_now=login_now)
+    else:
+        # User is not logged in
+        return render_template('contact.html',login_now=login_now)
+    
 
 @app.route('/prediction_doctor')
 def prediction_doctor():
@@ -236,6 +276,7 @@ def predict_doctor():
         coronaru_artery_disease=request.form['coronaru_artery_disease'],
         appetite=request.form['appetite'],
         anemia=request.form['anemia']
+
 
         history = HistoryMed(
             age=age[0],
@@ -287,7 +328,6 @@ def predict_guest():
         db.session.commit()
     return render_template('result.html',output=output)
 # prediction_text='Your Result :{}'.format(output),output=output
-
 
 if __name__ == '__main__':
     app.run(debug=True)

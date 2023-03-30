@@ -53,54 +53,54 @@
             </div>
         </nav>
     </div>
-    <div class="container text-center text-dark mt-5">
+    <h2 class="text-center mt-5">ระบบวิเคราะห์โรคไตเรื้อรัง(ผู้ใช้ทั่วไป)</h2>
+    <div class="container text-dark mt-5">
         <form action="{{url_for('predict_guest')}}" method="post" id='submit-form'>
-            <div class="row">
+            <div class="row horizontal-scrollable">
                 <div class="col-xl-4 form-group">
-                    <input type="text" class="form-control" name="age" placeholder="Your Age" required
+                    <label for="age" class="form-label">อายุ</label>
+                    <input type="text" class="form-control" name="age" placeholder="กรอกอายุของคุณ กรอกเป็นตัวเลข เช่น 40" required
                         style="height:50px">
-                    <small id="emailHelp" class="form-text text-muted text-left">กรอกอายุของคุณ กรอกเป็นตัวเลข เช่น
-                        40</small>
                 </div>
                 <div class="col-xl-4 form-group">
+                    <label for="age" class="form-label">โรคความดันโลหิตสูง</label>
                     <select class="form-control" name="hypertension" style="height:50px">
                         <option value="0" selected>ไม่เป็นโรคความดันโลหิตสูง</option>
                         <option value="1">เป็นโรคความดันโลหิตสูง</option>
                     </select>
-                    <small id="emailHelp" class="form-text text-muted text-left">โรคความดันโลหิตสูง</small>
                 </div>
                 <div class="col-xl-4 form-group">
+                    <label for="age" class="form-label">โรคเบาหวาน</label>
                     <select class="form-control" name="diabetes_mellitus" style="height:50px">
                         <option value="0" selected>ไม่เป็นโรคเบาหวาน</option>
                         <option value="1">เป็นโรคเบาหวาน</option>
                     </select>
-                    <small id="emailHelp" class="form-text text-muted text-left">โรคเบาหวาน</small>
                 </div>
             </div>
-            <div class="row">
+            <div class="row mt-3">
                 <div class="col-xl-4 form-group">
+                    <label for="age" class="form-label">ความอยากอาหาร</label>
                     <select class="form-control" name="appetite" style="height:50px">
                         <option value="0" selected>ความอยากอาหารปกติ</option>
                         <option value="1">เบื่ออาหาร</option>
                     </select>
-                    <small id="emailHelp" class="form-text text-muted text-left">ความอยากอาหาร</small>
                 </div>
                 <div class="col-xl-4 form-group">
+                    <label for="age" class="form-label">โรคโลหิตจาง</label>
                     <select class="form-control" name="anemia" style="height:50px">
                         <option value="0" selected>ไม่เป็นโรคโลหิตจาง</option>
                         <option value="1">เป็นโรคโลหิตจาง</option>
                     </select>
-                    <small id="emailHelp" class="form-text text-muted text-left">โรคโลหิตจาง</small>
                 </div>
                 <div class="col-xl-4 form-group">
+                    <label for="age" class="form-label">อาการเท้าบวม</label>
                     <select class="form-control" name="peda_edema" style="height:50px">
                         <option value="0" selected>ไม่มีอาการเท้าบวม กดบุ๋ม</option>
                         <option value="1">มีอาการเท้าบวม กดบุ๋ม</option>
                     </select>
-                    <small id="emailHelp" class="form-text text-muted text-left">อาการเท้าบวม กดบุ๋ม</small>
                 </div>
             </div>
-            <div class="text-center"><button class="btn btn-primary" id="submit" type="submit">PREDICT</button></div>
+            <div class="text-center mt-5"><button class="btn btn-primary" id="submit" type="submit">ทำนาย</button></div>
         </form>
     </div>
 

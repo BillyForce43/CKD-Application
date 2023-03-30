@@ -50,7 +50,7 @@
             <div class="container">
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav mx-auto">
-                        <li class="nav-item active">
+                        <li class="nav-item ">
                             <a class="nav-link" href="/">หน้าหลัก</a>
                         </li>
                         <li class="nav-item">
@@ -63,11 +63,11 @@
                         </a>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="/login">ล็อคอิน</a>
+                            <a class="nav-link" href="/login">เข้าสู่ระบบ</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="/register">สมัครมาชิก</a>
+                            <a class="nav-link active" href="/register">สมัครมาชิก</a>
                         </li>
                     </ul>
                 </div>
@@ -108,43 +108,43 @@
                             <h2>สมัครมาชิก</h2>
                             <!-- Username input -->
                             <div class="form-outline p-1">
-                                <label class="form-label" for="form3Example3">Username</label>
+                                <label class="form-label" for="form3Example3">ชื่อผู้ใช้</label>
                                 <input type="text" id="form3Example3" name="username"
-                                    class="form-control form-control-lg" placeholder="Enter username" required />
+                                    class="form-control form-control-lg" placeholder="กรอกชื่อผู้ใช้" required />
                             </div>
 
                             <!-- Password input -->
                             <div class="form-outline p-1">
-                                <label class="form-label" for="form3Example4">Password</label>
+                                <label class="form-label" for="form3Example4">รหัสผ่าน</label>
                                 <input type="password" id="form3Example4" name="password"
-                                    class="form-control form-control-lg" placeholder="Enter password" required />
+                                    class="form-control form-control-lg" placeholder="กรอกรหัสผ่าน" required />
                             </div>
 
                             <!-- Firstname input -->
                             <div class="form-outline p-1">
                                 <label class="form-label" for="form3Example3">ชื่อ</label>
                                 <input type="text" id="form3Example3" name="firstname"
-                                    class="form-control form-control-lg" placeholder="Enter first name" required />
+                                    class="form-control form-control-lg" placeholder="กรอกชื่อ" required />
                             </div>
 
                             <!-- Lastname input -->
                             <div class="form-outline p-1">
                                 <label class="form-label" for="form3Example3">นามสกุล</label>
                                 <input type="text" id="form3Example3" name="lastname"
-                                    class="form-control form-control-lg" placeholder="Enter last name" required />
+                                    class="form-control form-control-lg" placeholder="กรอกนามสกุล" required />
                             </div>
 
                             <!-- Email input -->
                             <div class="form-outline p-1">
                                 <label class="form-label" for="form3Example3">อีเมล</label>
                                 <input type="text" id="form3Example3" name="email" class="form-control form-control-lg"
-                                    placeholder="Enter email" required />
+                                    placeholder="กรอกอีเมล" required />
                             </div>
 
                             <!-- Role input -->
                             <div class="form-outline p-1">
                                 <label class="form-label" for="form3Example3">ประเภทผู้ใช้</label>
-                                <select class="form-select" aria-label="Default select example" name="user_role">
+                                <select class="form-select" aria-label="Default select example" name="user_role" required>
                                     <option selected>เลือกประเภทผู้ใช้</option>
                                     <option value="1">ผู้เชี่ยวชาญด้านการแพทย์</option>
                                     <option value="2">ผู้ใช้ทั่วไป</option>
@@ -153,7 +153,7 @@
 
                             <div class="text-center text-lg-start mt-4 pt-2">
                                 <button type="submit" class="btn btn-primary btn-lg"
-                                    style="padding-left: 2.5rem; padding-right: 2.5rem;">Register</button>
+                                    style="padding-left: 2.5rem; padding-right: 2.5rem;">สมัครมาชิก</button>
                             </div>
 
                         </div>

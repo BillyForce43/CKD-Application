@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <title>CKD Application</title>
+    <!-- CSS FILES -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="../static/css/bootstrap-icons.css" rel="stylesheet">
+
+    <link href="../static/css/owl.carousel.min.css" rel="stylesheet">
+
+    <link href="../static/css/owl.theme.default.min.css" rel="stylesheet">
+
+    <link href="../static/css/templatemo-medic-care.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container bg-da">
+        <nav class="navbar navbar-expand-lg bg-light fixed-top shadow-lg">
+            <div class="container">
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav mx-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="/">หน้าหลัก</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/contact">ติดต่อ</a>
+                        </li>
+
+                        <a class="navbar-brand d-none d-lg-block" href="/">
+                            CKD Application
+                            <strong class="d-block">Predict kidney disease risk</strong>
+                        </a>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/welcome">กลับหน้าหลัก</a>
+                        </li>
+                        <a class="nav-link text-danger" href="/logout">ออกจากระบบ</a>
+                    </ul>
+                </div>
+
+            </div>
+        </nav>
+    </div>
+
+
+
+    <!-- HistoryModal -->
+    <div class="modal fade" id="HistoryModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-6" id="exampleModalLabel">
+                        กรุณาเลือกเวอร์ชั่นที่ต้องการเรียกดูประวัติการทำนาย...
+                    </h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-6 text-center">
+                            <button class="btn btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#MedHistoryModal">ผู้เชี่ยวชาญด้านการแพทย์</button>
+                        </div>
+                        <div class="col-6 text-center">
+                            <button class="btn btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#GuestHistoryModal">ผู้ใช้ทั่วไป</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- HistoryModal -->
+
+    <h2 class="text-center mt-3">ประวัติการทำนายของผู้ใช้ทั่วไป</h2>
+    {% if guesthistory %}
+    <div class="table-responsive p-2" style="  width: 150%; overflow-x: auto;">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>วัน-เวลา ที่สร้าง</th>
+                    <th>ชื่อ</th>
+                    <th>อายุ</th>
+                    <th>โรคความดันโลหิตสูง</th>
+                    <th>โรคเบาหวาน</th>
+                    <th>โรคหลอดเลือดหัวใจ</th>
+                    <th>ความอยากอาหาร</th>
+                    <th>โรคโลหิตจาง</th>
+                    <th>เท้าบวม กดบุ๋ม</th>
+                    <th>ผลการทำนาย</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for prediction in guesthistory %}
+
+                <tr>
+                    <td>{{ prediction.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+                    <td>{{prediction.user.firstname}}</td>
+                    <td>{{ prediction.age }} ปี</td>
+                    <td>
+                        {% if prediction.hypertension == '0' %}
+                        ไม่เป็นโรคความดันโลหิตสูง
+                        {% else %}
+                        เป็นโรคความดันโลหิตสูง
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if prediction.diabetes_mellitus == '0' %}
+                        ไม่เป็นโรคเบาหวาน
+                        {% else %}
+                        เป็นโรคเบาหวาน
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if prediction.coronaru_artery_disease == '0' %}
+                        ไม่เป็นโรคหลอดเลือดหัวใจ
+                        {% else %}
+                        เป็นโรคหลอดเลือดหัวใจ
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if prediction.anemia == '0' %}
+                        ไม่เป็นโรคโลหิตจาง
+                        {% else %}
+                        เป็นโรคโลหิตจาง
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if prediction.appetite == '0' %}
+                        ความอยากอาหารปกติ
+                        {% else %}
+                        เบื่ออาหาร
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if prediction.peda_edema == '1' %}
+                        ไม่มีอาการเท้าบวม กดบุ๋ม
+                        {% else %}
+                        มีอาการเท้าบวม กดบุ๋ม
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if prediction.result == '1' %}
+                        ไม่มีความเสี่ยง
+                        {% else %}
+                        มีความเสี่ยง
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+    </div>
+
+
+    <!-- <script src="{{ url_for('static', filename='js/modal.js') }}"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

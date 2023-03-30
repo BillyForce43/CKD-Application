@@ -29,6 +29,38 @@
 </head>
 
 <body>
+    {% if login_now == 0 %}
+    <div class="container bg-da">
+        <nav class="navbar navbar-expand-lg bg-light fixed-top shadow-lg">
+            <div class="container">
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav mx-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="/">หน้าหลัก</a>
+                        </li>
+                        <li class="nav-item  active">
+                            <a class="nav-link" href="/contact">ติดต่อ</a>
+                        </li>
+
+                        <a class="navbar-brand d-none d-lg-block" href="/">
+                            CKD Application
+                            <strong class="d-block">Predict kidney disease risk</strong>
+                        </a>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="/login">เข้าสู่ระบบ</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="/register">สมัครมาชิก</a>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </nav>
+    </div>
+    {% else %}
     <div class="container bg-da">
         <nav class="navbar navbar-expand-lg bg-light fixed-top shadow-lg">
             <div class="container">
@@ -45,13 +77,9 @@
                             CKD Application
                             <strong class="d-block">Predict kidney disease risk</strong>
                         </a>
-
+                        <a class="nav-link" href="/welcome">เข้าสู่แอปพลิเคชั่นทำนายโรคไตเรื้อรัง</a>
                         <li class="nav-item">
-                            <a class="nav-link" href="/login">ล็อคอิน</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link" href="/register">สมัครมาชิก</a>
+                            <a class="nav-link text-danger" href="/logout">ออกจากระบบ</a>
                         </li>
                     </ul>
                 </div>
@@ -59,6 +87,7 @@
             </div>
         </nav>
     </div>
+    {% endif %}
 
     <section class="hero" id="hero">
         <div class="container">

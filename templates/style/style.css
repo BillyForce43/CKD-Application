@@ -2,4 +2,12 @@ body{
     background-color: aqua;
     font-family: 'Kanit', sans-serif;
 }
-  
+
+.horizontal-scrollable > .row {
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+.horizontal-scrollable > .row > .col{
+    display: inline-block;
+}
