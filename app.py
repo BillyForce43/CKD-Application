@@ -23,8 +23,8 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 session = Session(app)
 db = SQLAlchemy(app)
-model = pickle.load(open('model.pkl', 'rb'))
-model2 = pickle.load(open('model2.pkl', 'rb'))
+model = pickle.load(open('model.pkl', 'rb')) # doctor_model version
+model2 = pickle.load(open('model2.pkl', 'rb')) # general_person_model version
 
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -38,41 +38,50 @@ class User(UserMixin, db.Model):
     def __repr__(self):
         return f'<User {self.username}>'
 
-class HistoryMed(db.Model):
+class History(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    age = db.Column(db.String(10), nullable=False)
-    blood_pressure = db.Column(db.String(20), nullable=False)
-    albumin = db.Column(db.String(10), nullable=False)
-    sugar = db.Column(db.String(10), nullable=False)
-    blood_glucose_random = db.Column(db.String(10), nullable=False)
-    blood_urea = db.Column(db.String(10), nullable=False)
-    serum_creatinine = db.Column(db.String(10), nullable=False)
-    haemoglobin = db.Column(db.String(10), nullable=False)
-    packed_cell_volume = db.Column(db.String(10), nullable=False)
-    red_blood_cell_count = db.Column(db.String(10), nullable=False)
-    hypertension = db.Column(db.String(10), nullable=False)
-    diabetes_mellitus = db.Column(db.String(10), nullable=False)
-    coronaru_artery_disease = db.Column(db.String(10), nullable=False)
-    appetite = db.Column(db.String(10), nullable=False)
-    anemia = db.Column(db.String(10), nullable=False)
-    result = db.Column(db.String(10), nullable=False)
+    age = db.Column(db.String(10), nullable=True)
+
+    ## Attribute ALL For Predict
+    blood_pressure = db.Column(db.String(20), nullable=True)
+    albumin = db.Column(db.String(10), nullable=True)
+    sugar = db.Column(db.String(10), nullable=True)
+    blood_glucose_random = db.Column(db.String(10), nullable=True)
+    blood_urea = db.Column(db.String(10), nullable=True)
+    serum_creatinine = db.Column(db.String(10), nullable=True)
+    haemoglobin = db.Column(db.String(10), nullable=True)
+    packed_cell_volume = db.Column(db.String(10), nullable=True)
+    red_blood_cell_count = db.Column(db.String(10), nullable=True)
+    hypertension = db.Column(db.String(10), nullable=True)
+    diabetes_mellitus = db.Column(db.String(10), nullable=True)
+    coronaru_artery_disease = db.Column(db.String(10), nullable=True)
+    appetite = db.Column(db.String(10), nullable=True)
+    anemia = db.Column(db.String(10), nullable=True)
+    hypertension = db.Column(db.String(10), nullable=True)
+    diabetes_mellitus = db.Column(db.String(10), nullable=True)
+    appetite = db.Column(db.String(10), nullable=True)
+    anemia = db.Column(db.String(10), nullable=True)
+    peda_edema = db.Column(db.String(10), nullable=True)
+    result = db.Column(db.String(10), nullable=True)
+
+    ##
+    history_type = db.Column(db.String(10), nullable=False)
     timestamp = db.Column(db.DateTime, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    user = db.relationship('User', backref='history_med')
-    
-class HistoryGuest(db.Model):
+    patient_id = db.Column(db.Integer, db.ForeignKey('patient.id'), nullable=False)
+    user = db.relationship('User', backref='history_user')
+    patient = db.relationship('Patient', backref='history_patient')
+
+class Patient(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    age = db.Column(db.String(10), nullable=False)
-    hypertension = db.Column(db.String(10), nullable=False)
-    diabetes_mellitus = db.Column(db.String(10), nullable=False)
-    appetite = db.Column(db.String(10), nullable=False)
-    anemia = db.Column(db.String(10), nullable=False)
-    peda_edema = db.Column(db.String(10), nullable=False)
-    result = db.Column(db.String(10), nullable=False)
+    age = db.Column(db.String(10), nullable=True)
+    firstname = db.Column(db.String(80), nullable=True)
+    lastname = db.Column(db.String(80), nullable=True)
+    tel = db.Column(db.String(120), nullable=True)
+
     timestamp = db.Column(db.DateTime, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    user = db.relationship('User', backref='history_guest')
-    
+    user = db.relationship('User', backref='patient')
 
 db.create_all()
 
@@ -189,9 +198,13 @@ def reslult():
 @app.route('/welcome')
 def welcome():
     # prepare data for show history of prediction
-    history_med = HistoryMed.query.filter_by(user_id=current_user.id).order_by(HistoryMed.timestamp.desc()).all()
-    history_guest = HistoryGuest.query.filter_by(user_id=current_user.id).order_by(HistoryGuest.timestamp.desc()).all()
+
+    history_guest = History.query.filter_by(user_id=current_user.id,history_type=2).order_by(History.timestamp.desc()).all()
     user_data = User.query.filter(User.id == current_user.id).first()
+
+    history_med = db.session.query(History,Patient).join(Patient).filter(History.user_id == Patient.user_id).order_by(History.timestamp.desc()).all()
+    print(history_med)
+
     # prepare data for show history of prediction
 
     med_role = 0
@@ -213,18 +226,40 @@ def welcome():
             admin_role = 1
     # check role to show history
 
-    return render_template('welcome.html', history_med=history_med, history_guest=history_guest, user_data=user_data, med_role=med_role, guest_role=guest_role,admin_role=admin_role)
-    
+    return render_template('welcome.html', history_med=history_med, history_guest=history_guest, user_data=user_data, 
+                           med_role=med_role, guest_role=guest_role,admin_role=admin_role)
+
+@app.route('/add_patient',methods=['POST'])
+def add_patient():
+    if request.method == 'POST':
+        fname=request.form['firstname'],
+        lname=request.form['lastname'],
+        tel=request.form['tel'],
+        age=request.form['age']
+        patient = Patient(
+            age = age[0],
+            firstname = fname[0],
+            lastname = lname[0],
+            tel = tel[0],
+            user=current_user
+        )
+        db.session.add(patient)
+        db.session.commit()
+        return redirect('/prediction_doctor')
+        
+    return render_template('prediction-doctor.html')
+
+
 @app.route('/admin_history_med')
 def admin_history():
     users = User.query.all()
-    medhistory = HistoryMed.query.order_by(HistoryMed.timestamp.desc()).all()
+    medhistory = History.query.fillter_by(history_type = 1).order_by(History.timestamp.desc()).all()
     return render_template('admin-history-med.html', users=users,medhistory=medhistory)
 
 @app.route('/admin_history_guest')
 def admin_guest():
     users = User.query.all()
-    guesthistory = HistoryGuest.query.order_by(HistoryGuest.timestamp.desc()).all()
+    guesthistory = History.query.fillter_by(history_type = 2).order_by(History.timestamp.desc()).all()
     return render_template('admin-history-guest.html', users=users,guesthistory=guesthistory)
 
 @app.route('/contact')
@@ -241,10 +276,12 @@ def contact():
 
 @app.route('/prediction_doctor')
 def prediction_doctor():
-    return render_template('prediction-doctor.html')
+    # users = User.query.all()
+    patient = Patient.query.filter_by(user_id=current_user.id).order_by(Patient.timestamp.desc()).all()
+    return render_template('prediction-doctor.html',patient=patient)
 
 @app.route('/prediction_guest')
-def prediction_guest():
+def prediction_guest(): 
     return render_template('prediction-guest.html')
 
 @app.route('/predict_doctor',methods=['POST'])
@@ -252,6 +289,7 @@ def predict_doctor():
     #For rendering results on HTML GUI
     if request.method == 'POST':  
         int_features = [float(x) for x in request.form.values()]
+        int_features.pop(0)
         final_features = [np.array(int_features)]
         prediction = model.predict(final_features)
         output = round(prediction[0], 2)
@@ -275,10 +313,12 @@ def predict_doctor():
         diabetes_mellitus=request.form['diabetes_mellitus'],
         coronaru_artery_disease=request.form['coronaru_artery_disease'],
         appetite=request.form['appetite'],
-        anemia=request.form['anemia']
+        anemia=request.form['anemia'],
+        history_type = 1,
+        patient_id = int(request.form['patient_list'])
 
 
-        history = HistoryMed(
+        history = History(
             age=age[0],
             blood_pressure = blood_pressure[0],
             albumin=albumin[0],
@@ -295,6 +335,8 @@ def predict_doctor():
             appetite=appetite[0],
             anemia=anemia[0],
             result=string_output,
+            history_type=history_type[0],
+            patient_id = patient_id,
             user=current_user
         )
         db.session.add(history)
@@ -322,8 +364,9 @@ def predict_guest():
         appetite = request.form['appetite']
         anemia = request.form['anemia']
         peda_edema = request.form['peda_edema']
-        history = HistoryGuest(age=age, hypertension=hypertension, diabetes_mellitus=diabetes_mellitus, appetite=appetite,
-                               anemia=anemia, peda_edema=peda_edema,result=string_output,user=current_user)
+        history_type = 2
+        history = History(age=age, hypertension=hypertension, diabetes_mellitus=diabetes_mellitus, appetite=appetite,
+                               anemia=anemia, peda_edema=peda_edema,result=string_output,history_type=history_type,patient_id = 0,user=current_user)
         db.session.add(history)
         db.session.commit()
     return render_template('result.html',output=output)

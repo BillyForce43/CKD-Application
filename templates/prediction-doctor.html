@@ -53,8 +53,91 @@
         </nav>
     </div>
     <h2 class="text-center mt-5">ระบบวิเคราะห์โรคไตเรื้อรัง(แพทย์ผู้เชี่ยวชาญ)</h2>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AddPateint">Add
+                    Patient</button><br><br>
+                <!-- <select class="form-control" name="patient_list" required>
+                    <option value="-99">ไม่ระบุ</option>
+                    {% if patient %}
+                    <option value="-99">ไม่ระบุ</option>
+                    {% for patient_name in patient %}
+                    <option value="{{ patient_name.id }}">{{ patient_name.firstname }} {{ patient_name.lastname }}
+                    </option>
+                    {% endfor %}
+                    {% else %}
+                    <option value="-99">ไม่ระบุ</option>
+                    {% endif%} -->
+
+                </select> 
+            </div>
+        </div>
+    </div>
+
+    <!-- Add patient Modal -->
+    <div class="modal fade" id="AddPateint" tabindex="-1" aria-labelledby="AddPateint" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-6" id="exampleModalLabel">
+                        เพิ่มผู้ป่วย
+                    </h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="{{ url_for('add_patient') }}" method="POST">
+                        <div class="mb-3">
+                            <label for="recipient-name" class="col-form-label">อายุ</label>
+                            <input type="text" class="form-control" name="age" id="recipient-name"
+                                placeholder="กรอกอายุ">
+                        </div>
+                        <div class="mb-3">
+                            <label for="message-text" class="col-form-label">ชื่อจริง</label>
+                            <input type="text" class="form-control" name="firstname" id="recipient-name"
+                                placeholder="กรอกชื่อจริง">
+                        </div>
+                        <div class="mb-3">
+                            <label for="message-text" class="col-form-label">นามสกุล</label>
+                            <input type="text" class="form-control" name="lastname" id="recipient-name"
+                                placeholder="กรอกนามสกุล">
+                        </div>
+                        <div class="mb-3">
+                            <label for="message-text" class="col-form-label">เบอร์โทรศัพท์</label>
+                            <input type="text" class="form-control" name="tel" id="recipient-name"
+                                placeholder="กรอกเบอร์โทรศัพท์">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
+                            <button type="submit" class="btn btn-primary">บันทึก</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- Add patient Modal -->
+
     <div class="container text-dark">
         <form action="{{url_for('predict_doctor')}}" method="post" id='submit-form' class="php-email-form p-3 p-md-4">
+            <div class="row">
+                <div class="col-12">
+                    <label for="info_owner" class="form-label">เจ้าของข้อมูล</label>
+                    <select class="form-control" name="patient_list" required>
+                        {% if patient %}
+                        <option value="-99">ไม่ระบุ</option>
+                        {% for patient_name in patient %}
+                        <option value="{{ patient_name.id }}">{{ patient_name.firstname }} {{ patient_name.lastname }}
+                        </option>
+                        {% endfor %}
+                        {% else %}
+                        <option value="-99">ไม่ระบุ</option>
+                        {% endif%}
+
+                    </select>
+                </div>
+            </div>
             <div class="row mt-4">
                 <div class="col-xl-4 form-group">
                     <label for="age" class="form-label">อายุ</label>
@@ -63,8 +146,8 @@
                 </div>
                 <div class="col-xl-4 form-group">
                     <label for="age" class="form-label">ความดันโลหิต</label>
-                    <input type="text" class="form-control" name="blood_pressure" placeholder="หน่วย mm/Hg กรอกเป็นตัวเลข เช่น 120"
-                        required style="height:50px">
+                    <input type="text" class="form-control" name="blood_pressure"
+                        placeholder="หน่วย mm/Hg กรอกเป็นตัวเลข เช่น 120" required style="height:50px">
                 </div>
                 <div class="col-xl-4 form-group">
                     <label for="age" class="form-label">อัลบูมิน/โปรตีน</label>
@@ -91,7 +174,8 @@
                         <option value="4">4+</option>
                         <option value="5">5+</option>
                     </select>
-                    <small id="emailHelp" class="form-text text-muted text-left">กรอกเป็นระดับ 0 (Negative), 1+,2+,3+, 4+ หรือ 5+</small>
+                    <small id="emailHelp" class="form-text text-muted text-left">กรอกเป็นระดับ 0 (Negative), 1+,2+,3+,
+                        4+ หรือ 5+</small>
                 </div>
                 <div class="col-xl-4 form-group">
                     <label for="age" class="form-label">ระดับน้ำตาลในเลือดแบบสุ่ม</label>
@@ -100,8 +184,8 @@
                 </div>
                 <div class="col-xl-4 form-group">
                     <label for="age" class="form-label">ยูเรียในเลือด</label>
-                    <input type="text" class="form-control" name="blood_urea" placeholder="หน่วยเป็น mg/dL กรอกตัวเลข เช่น 90"
-                        required style="height:50px" />
+                    <input type="text" class="form-control" name="blood_urea"
+                        placeholder="หน่วยเป็น mg/dL กรอกตัวเลข เช่น 90" required style="height:50px" />
                 </div>
             </div>
             <div class="row mt-4">
