@@ -1,18 +1,12 @@
 import numpy as np
 import pickle
-from flask import Flask, render_template, request, session, redirect, url_for, flash,send_file
-from flask_bcrypt import Bcrypt
-from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField
-from wtforms.validators import DataRequired, Length, Email, EqualTo
+from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user, UserMixin
 from flask_session import Session
-from werkzeug.security import check_password_hash
 import sqlite3
 from decimal import Decimal
-import pandas as pd
 
 
 app = Flask(__name__)
@@ -202,8 +196,9 @@ def welcome():
     history_guest = History.query.filter_by(user_id=current_user.id,history_type=2).order_by(History.timestamp.desc()).all()
     user_data = User.query.filter(User.id == current_user.id).first()
 
-    history_med = db.session.query(History,Patient).join(Patient).filter(History.user_id == Patient.user_id).order_by(History.timestamp.desc()).all()
-    print(history_med)
+    # history_med = db.session.query(History,Patient).join(Patient).filter(History.user_id == Patient.user_id).order_by(History.timestamp.desc()).all()
+    history_med = History.query.filter_by(user_id = current_user.id, history_type = '1').order_by(History.timestamp.desc()).all()
+    
 
     # prepare data for show history of prediction
 
@@ -226,7 +221,7 @@ def welcome():
             admin_role = 1
     # check role to show history
 
-    return render_template('welcome.html', history_med=history_med, history_guest=history_guest, user_data=user_data, 
+    return render_template('welcome.html', history_med=history_med, user_data=user_data, history_guest=history_guest, 
                            med_role=med_role, guest_role=guest_role,admin_role=admin_role)
 
 @app.route('/add_patient',methods=['POST'])

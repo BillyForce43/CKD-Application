@@ -273,6 +273,10 @@
                                                 <tr>
                                                     <td>{{ prediction.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</td>
                                                     <td>{{prediction.user.firstname}}</td>
+                                                    <td>{{prediction.patient.firstname}} {{prediction.patient.lastname}}</td>
+                                                    <!-- {% for patient_firstname in patient %}
+                                                        <td>{{patient_firstname.firstname}}</td>
+                                                    {% endfor %} -->
                                                     <td class="text-center">{{ prediction.age }} ปี</td>
                                                     <td class="text-center">{{ prediction.blood_pressure }}</td>
                                                     <td class="text-center">{{ prediction.albumin }}</td>
